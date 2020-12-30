@@ -4,9 +4,9 @@ const { buildSchema } = require('graphql');
 
 const esquema = buildSchema(`
 type Partida {
-    codiP: ID!
-    jug1: String
-    jug2: String
+    id: ID!
+    jug1: Jugador
+    jug2: Jugador
 }
 
 type Jugador {
@@ -26,41 +26,61 @@ type Mutation {
 }
 `);
 
-var llistaPartides = [];
+const llistaPartides = [];
 
 const arrel = {
     iniciarJoc: ({codiP}) => {
         for(let i=0; i<llistaPartides.length; i++){
-            if(llistaPartides[i].codiP == codiP){
+            if(llistaPartides[i].id == codiP){
                 throw new Error('Ja existeix una partida amb aquest codi!');
             }
         }
-        let partida = new Partida(id,jug1,jug2);
+        let j1 = new Jugador("",0,"");
+        let j2 = new Jugador("",0,"");
+        let partida = new Partida(codiP,j1,j2);
         llistaPartides.push(partida);
         return partida;
     },
     consultarEstatPartida: ({codiP}) => {
-        let partida = llistaPartides.find(a => a.codiP == codiP);
+        let partida = llistaPartides.find(a => a.id == codiP);
         if (!partida) throw new Error('Cap partida amb codi ' + codiP);
         return partida;
     },
     moureJugador: ({codiP,jugador,tipus}) => {
-        let partida = llistaPartides.find(a => a.codiP == codiP);
+        let partida = llistaPartides.find(a => a.id == codiP);
         if(partida){
-            if(partida.jug1.jugador == ""){
-                partida.jug1.jugador = jugador;
-            }else if(partida.jug2.jugador == ""){
-                partida.jug2.jugador = jugador;
+            let index = llistaPartides.indexOf(partida);           
+            if(llistaPartides[index].jug1.nom == ""){
+                llistaPartides[index].jug1.nom = jugador;
+            }else if(llistaPartides[index].jug2.nom == ""){
+                llistaPartides[index].jug2.nom = jugador;
             }
-            if(partida.jug1.tipus == "" && partida.jug1.jugador == jugador){
-                partida.jug1.tipus == tipus;
-            }else if(partida.jug2.tipus == "" && partida.jug2.jugador == jugador){
-                partida.jug2.tipus == tipus;
+            if(llistaPartides[index].jug1.tipus == "" && llistaPartides[index].jug1.nom == jugador){
+                llistaPartides[index].jug1.tipus = tipus;
+            }else if(llistaPartides[index].jug2.tipus == "" && llistaPartides[index].jug2.nom == jugador){
+                llistaPartides[index].jug2.tipus = tipus;
             }
+            if(llistaPartides[index].jug1.puntuacio == 3 || llistaPartides[index].jug2.puntuacio == 3){
+                throw new Error('Hi ha un guanyador !');
+            }else{
+                if(llistaPartides[index].jug1.tipus != "" && llistaPartides[index].jug2.tipus != ""){
+                    if((llistaPartides[index].jug1.tipus === 'paper' && llistaPartides[index].jug2.tipus === 'pedra') || (llistaPartides[index].jug1.tipus === 'pedra' && llistaPartides[index].jug2.tipus === 'tisora') || (llistaPartides[index].jug1.tipus === 'tisora' && llistaPartides[index].jug2.tipus === 'paper')){
+                        llistaPartides[index].jug1.puntuacio++;
+                        llistaPartides[index].jug1.tipus = "";
+                        llistaPartides[index].jug2.tipus = "";
+                    }else if(llistaPartides[index].jug1.tipus != llistaPartides[index].jug2.tipus){
+                        llistaPartides[index].jug2.puntuacio++;
+                        llistaPartides[index].jug1.tipus = "";
+                        llistaPartides[index].jug2.tipus = "";
+                    }
+                }
+            }
+            return llistaPartides[index];
         }
+        throw new Error('Cap partida amb codi ' + codiP);
     },
     acabarJoc: ({codiP}) => {
-        let partida = llistaPartides.find(a => a.codiP == codiP);
+        let partida = llistaPartides.find(a => a.id == codiP);
         if (partida){
             let index = llistaPartides.indexOf(partida);
             llistaPartides.splice(index,1);
@@ -76,3 +96,19 @@ app.use('/graphql', graphqlHTTP({
 }));
 app.listen(4000);
 console.log('Executant servidor GraphQL API a http://localhost:4000/graphql');
+
+class Partida {
+    constructor(id,jug1,jug2){
+        this.id = id;
+        this.jug1 = jug1;
+        this.jug2 = jug2;
+    }
+}
+
+class Jugador {
+    constructor(nom,puntuacio,tipus){
+        this.nom = nom;
+        this.puntuacio = puntuacio;
+        this.tipus = tipus;
+    }
+}
