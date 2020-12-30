@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://daw2/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://daw2/">
+
+<xs:element name="acabarJoc" type="tns:acabarJoc" />
+
+<xs:element name="acabarJocResponse" type="tns:acabarJocResponse" />
+
+<xs:element name="consultarEstatPartida" type="tns:consultarEstatPartida" />
+
+<xs:element name="consultarEstatPartidaResponse" type="tns:consultarEstatPartidaResponse" />
+
+<xs:element name="getLlistaPartides" type="tns:getLlistaPartides" />
+
+<xs:element name="getLlistaPartidesResponse" type="tns:getLlistaPartidesResponse" />
+
+<xs:element name="iniciarJoc" type="tns:iniciarJoc" />
+
+<xs:element name="iniciarJocResponse" type="tns:iniciarJocResponse" />
+
+<xs:element name="moureJugador" type="tns:moureJugador" />
+
+<xs:element name="moureJugadorResponse" type="tns:moureJugadorResponse" />
+
+<xs:element name="setLlistaPartides" type="tns:setLlistaPartides" />
+
+<xs:element name="setLlistaPartidesResponse" type="tns:setLlistaPartidesResponse" />
+
+<xs:complexType name="setLlistaPartides">
+<xs:sequence>
+<xs:element name="arg0" type="tns:partida" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="partida">
+<xs:sequence>
+<xs:element name="id" type="xs:int" />
+<xs:element name="jug2" type="tns:jugador" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="jugador">
+<xs:sequence>
+<xs:element name="nom" type="xs:string" minOccurs="0" />
+<xs:element name="puntuacio" type="xs:int" />
+<xs:element name="tipusMoviment" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setLlistaPartidesResponse">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="acabarJoc">
+<xs:sequence>
+<xs:element name="codiPartida" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="acabarJocResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getLlistaPartides">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="getLlistaPartidesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:partida" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarEstatPartida">
+<xs:sequence>
+<xs:element name="codiPartida" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarEstatPartidaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="moureJugador">
+<xs:sequence>
+<xs:element name="tipus" type="xs:int" />
+<xs:element name="codiPartida" type="xs:int" />
+<xs:element name="nomJugador" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="moureJugadorResponse">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="iniciarJoc">
+<xs:sequence>
+<xs:element name="codiPartida" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="iniciarJocResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
