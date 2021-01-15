@@ -89,6 +89,8 @@ const arrel = {
 };
 
 const app = express();
+const cors = require(`cors`);
+app.use(cors());
 app.use('/graphql', graphqlHTTP({
     schema: esquema,
     rootValue: arrel,
