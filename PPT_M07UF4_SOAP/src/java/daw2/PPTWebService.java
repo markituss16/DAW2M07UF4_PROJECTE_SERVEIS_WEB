@@ -48,6 +48,7 @@ public class PPTWebService {
                     llistaPartides.get(i).getJug2().setTipusMoviment(tipus);
                 }
                 if (llistaPartides.get(i).getJug1().getPuntuacio() == 3 || llistaPartides.get(i).getJug2().getPuntuacio() == 3) {
+                    acabarJoc(codiP);
                 } else {
                     if (llistaPartides.get(i).getJug1().getTipusMoviment() != 0 && llistaPartides.get(i).getJug2().getTipusMoviment() != 0) {
                         if ((llistaPartides.get(i).getJug1().getTipusMoviment() == PEDRA && llistaPartides.get(i).getJug2().getTipusMoviment() == TISORA) || (llistaPartides.get(i).getJug1().getTipusMoviment() == PAPER && llistaPartides.get(i).getJug2().getTipusMoviment() == PEDRA)

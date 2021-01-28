@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 const fs = require('fs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+var cors = require('cors');
+app.use(cors());
 
 //Per a guardar les partides
 var llistaPartides = [];
@@ -21,7 +23,7 @@ app.post("/iniciarJoc/:codiPartida", (req,res) => {
     var partida = {id: id, jugador1: {nom: "",puntuacioJug1:0, tipusMoviment: ""}, jugador2: {nom:"",puntuacioJug2:0, tipusMoviment: ""}}; //Objecte on es guarda la info de la partida
     llistaPartides.push(partida);
     console.log(`S'ha creat una partida amb el codi ${id}`);
-    res.send("Partida creada.");
+    res.send(JSON.stringify(partida));
 });
 
 /**************CONSULTAR ESTAT DE LA PARTIDA *************/
@@ -29,10 +31,10 @@ app.get("/consultarEstatPartida/:codiPartida", (req,res) => {
     var id = req.params.codiPartida;
     for(let i=0; i<llistaPartides.length; i++){
         if(llistaPartides[i].id == id){
-            res.send(JSON.stringify(llistaPartides[i]));
+            res.send(llistaPartides[i]);
         }
     }
-    res.send("Aquesta partida no existeix.");
+        res.send("Aquesta partida no existeix.");
 });
 
 /*********** EL JUGADOR REALITZA UN MOVIMENT*********/

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="author" content="marcp8363@gmail.com" />
+        <link rel="stylesheet" type="text/css" href="">
+        <script type="text/javascript" src="frontendPartida.js"></script>
+        <title>Pedra, paper i tisora</title>
+    </head>
+    <body>
+        <h1>Joc del pedra, paper i tisora (Express)</h1>
+        <label>Codi de la partida: </label><input type="number" id="codiP1">
+        <button id="iniciar">Iniciar joc</button>
+        <p id="resposta"></p>
+
+    <br><br><h2>Consultar estat de la partida</h2>
+        <label>Codi de la partida: </label><input type="number" id="codiP2">
+        <button id="consultar">Consultar partida</button>
+        <label id="resultat"></label>
+
+    <h2>Fer un moviment</h2>
+        <h3>Jugador 1</h3>
+        <label>Codi de la partida: </label><input type="number" id="codiJ1"><br><br>
+        <label>Nom del jugador: </label><input id="jugador1"><br><br>
+        <label>Moviment a realitzar: </label><input id="tipus1"><br><br>
+        <button id="moviment1">Iniciar moviment</button>
+        <label id="resultatMov"></label>
+
+        <h3>Jugador 2</h3>
+        <label>Codi de la partida: </label><input type="number" id="codiJ2"><br><br>
+        <label>Nom del jugador: </label><input id="jugador2"><br><br>
+        <label>Moviment a realitzar: </label><input id="tipus2"><br><br>
+        <button id="moviment2">Iniciar moviment</button>
+        <label id="resultatMov"></label>
+
+    <h2>Finalitzar partida</h2>
+        <label>Codi de la partida: </label><input type="number" id="codiP4">
+        <button id="acabar">Acabar partida</button>
+        <label id="resultatFin"></label>
+    </body>
+</html>
